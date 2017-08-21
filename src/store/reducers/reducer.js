@@ -36,7 +36,7 @@ function setInitialState(state) {
   return state.merge(initialState);
 }
 
-function changeDimensions(state, gridProperty, behaviour) {
+function changeDimensions(state, gridProperty, behaviour, resizeVal) {
   const framesCount = state.get('frames').size;
   const propertyValue = state.get(gridProperty);
   let newFrames = List();
@@ -51,6 +51,7 @@ function changeDimensions(state, gridProperty, behaviour) {
               gridProperty,
               behaviour,
               GRID_INITIAL_COLOR,
+              resizeVal,
               { columns: state.get('columns'), rows: state.get('rows') }
             ),
           interval: state.getIn(['frames', i, 'interval']),
@@ -63,10 +64,16 @@ function changeDimensions(state, gridProperty, behaviour) {
   const newValues = {
     frames: newFrames
   };
-  newValues[gridProperty] = parseInt(
-    behaviour === 'add' ? propertyValue + 1 : propertyValue - 1,
-    10
-  );
+  alert(`property: ${propertyValue} resize: ${resizeVal}`);
+  newValues[gridProperty] = parseInt(propertyValue, 10) + parseInt(resizeVal, 10);
+    //propertyValue + resizeVal,
+    //behaviour === 'add' ? propertyValue + 1 : propertyValue - 1,
+      //behaviour === 'remove' ? propertyValue -1 :
+        //resizeVal, //something weird happens with this
+      /*(behavior === 'remove' ? propertyValue - 1 :
+      cellValue),*/
+    //10
+  //);
   return state.merge(newValues);
 }
 
@@ -293,7 +300,7 @@ export default function (state = Map(), action) {
     case 'SET_INITIAL_STATE':
       return setInitialState(state);
     case 'CHANGE_DIMENSIONS':
-      return changeDimensions(state, action.gridProperty, action.behaviour);
+      return changeDimensions(state, action.gridProperty, action.behaviour, action.resizeVal);
     case 'SET_COLOR_SELECTED':
       return setColorSelected(
         state, action.newColorSelected, action.paletteColorPosition

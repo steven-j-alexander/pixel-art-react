@@ -10,37 +10,37 @@ export function createGrid(cellsCount, initialColor, intervalPercentage) {
   return Map({ grid: newGrid, interval: intervalPercentage, key: shortid.generate() });
 }
 
-export function resizeGrid(frame, gridProperty, behaviour, initialColor, dimensions) {
+export function resizeGrid(frame, gridProperty, behaviour, initialColor, resizeVal, dimensions) {
   const totalCells = dimensions.rows * dimensions.columns;
   let currentFrameGrid = frame;
 
   if (gridProperty === 'columns') {
     // Resize by columns
     if (behaviour === 'add') {
-      // Add a row at the end
+      // Add a column at the end
       for (let i = totalCells; i > 0; i -= dimensions.columns) {
         currentFrameGrid = currentFrameGrid.splice(i, 0, Map({ color: initialColor, used: false }));
+        //nest another loop for each col increment
       }
     } else {
       for (let i = totalCells; i > 0; i -= dimensions.columns) {
-        currentFrameGrid = currentFrameGrid.splice(i - 1, 1);
+        currentFrameGrid = currentFrameGrid.splice(i - 1, 1); //change the second splice parameter to equal the total decrement
       }
     }
   } else if (gridProperty === 'rows') {
     // Resize by rows
-    if (behaviour === 'add') {
+    if (behaviour === 'change') {
       // Add a row at the end
-      for (let i = 0; i < dimensions.columns; i++) {
+      for (let i = 0; i < (dimensions.columns * Math.abs(resizeVal)); i++) { //FIX THIS LINE
         currentFrameGrid = currentFrameGrid.push(Map({ color: initialColor, used: false }));
       }
     } else {
       // Remove the last row
-      for (let i = 0; i < dimensions.columns; i++) {
+      for (let i = 0; i < dimensions.columns; i++) { //add a * decVal after dimensions.columns
         currentFrameGrid = currentFrameGrid.splice(-1, 1);
       }
     }
   }
-
   return currentFrameGrid;
 }
 

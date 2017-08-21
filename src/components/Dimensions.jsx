@@ -5,8 +5,20 @@ import Picker from './Picker';
 import * as actionCreators from '../store/actions/actionCreators';
 
 const Dimensions = (props) => {
-  const changeDimensions = (gridProperty, behaviour) => {
-    props.actions.changeDimensions(gridProperty, behaviour);
+  const changeDimensions = (gridProperty, behaviour, value) => {
+    let resizeVal = value - props[gridProperty];
+    switch(behaviour) {
+    case 'change':
+      Number.isInteger(resizeVal) ?
+        props.actions.changeDimensions(gridProperty, behaviour, Math.ceil(resizeVal)) :
+        null; //make sure the value reverts back to whatever is currently in the store. need to force losefocus?
+      break;
+    default:
+      (props[gridProperty] < 2 && behaviour === ('remove')) ?
+        null :
+        props.actions.changeDimensions(gridProperty, behaviour, Math.ceil(resizeVal));
+      break;
+    };
   };
 
   const { columns, rows } = props;

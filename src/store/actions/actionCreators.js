@@ -6,11 +6,12 @@ export function setInitialState() {
   };
 }
 
-export function changeDimensions(gridProperty, behaviour) {
+export function changeDimensions(gridProperty, behaviour, resizeVal) {
   return {
     type: 'CHANGE_DIMENSIONS',
     gridProperty,
-    behaviour
+    behaviour,
+    resizeVal
   };
 }
 
