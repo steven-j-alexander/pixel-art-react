@@ -18,7 +18,7 @@ class Picker extends React.Component {
 
   handleKeyPress(ev) {
     ev.key === 'Enter' ?
-      this.props.action(this.props.type, 'change', ev.target.value) :
+      this.props.action(this.props.type, 'change', ev.target.value) : //check diff and set add or remove
       null;
   };
 
@@ -39,6 +39,7 @@ class Picker extends React.Component {
             value={this.state.pickerValue}
             onChange={(ev) => { handlePickerChange(ev); }}
             onKeyPress={(ev) => { this.handleKeyPress(ev); }}
+            onBlur={this.setState({ pickerValue: '3' })}
           />
         </div>
         <div className="picker__buttons">

@@ -10,13 +10,18 @@ const Dimensions = (props) => {
     switch(behaviour) {
     case 'change':
       Number.isInteger(resizeVal) ?
-        props.actions.changeDimensions(gridProperty, behaviour, Math.ceil(resizeVal)) :
+        props.actions.changeDimensions(gridProperty, Math.ceil(resizeVal)) :
         null; //make sure the value reverts back to whatever is currently in the store. need to force losefocus?
       break;
-    default:
-      (props[gridProperty] < 2 && behaviour === ('remove')) ?
-        null :
-        props.actions.changeDimensions(gridProperty, behaviour, Math.ceil(resizeVal));
+    case 'remove':
+      if (props[gridProperty] < 2) {
+        null; //revert value back. need to return state to be equal to itself. will it update though?
+      } else {
+        props.actions.changeDimensions(gridProperty, Math.ceil(resizeVal));
+      }
+      break;
+    case 'add':
+      null;
       break;
     };
   };
