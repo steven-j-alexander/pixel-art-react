@@ -36,7 +36,7 @@ function setInitialState(state) {
   return state.merge(initialState);
 }
 
-function changeDimensions(state, gridProperty, behaviour, resizeVal) {
+function changeDimensions(state, gridProperty, resizeVal) {
   const framesCount = state.get('frames').size;
   const propertyValue = state.get(gridProperty);
   let newFrames = List();
@@ -49,7 +49,6 @@ function changeDimensions(state, gridProperty, behaviour, resizeVal) {
             resizeGrid(
               state.getIn(['frames', i, 'grid']),
               gridProperty,
-              behaviour,
               GRID_INITIAL_COLOR,
               resizeVal,
               { columns: state.get('columns'), rows: state.get('rows') }

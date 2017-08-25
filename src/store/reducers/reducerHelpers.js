@@ -10,9 +10,11 @@ export function createGrid(cellsCount, initialColor, intervalPercentage) {
   return Map({ grid: newGrid, interval: intervalPercentage, key: shortid.generate() });
 }
 
-export function resizeGrid(frame, gridProperty, behaviour, initialColor, resizeVal, dimensions) {
+export function resizeGrid(frame, gridProperty, initialColor, resizeVal, dimensions) {
   const totalCells = dimensions.rows * dimensions.columns;
   let currentFrameGrid = frame;
+
+  let behaviour = 'change'; //TEMPORARY
 
   if (gridProperty === 'columns') {
     // Resize by columns
