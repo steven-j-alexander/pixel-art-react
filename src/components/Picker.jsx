@@ -14,13 +14,13 @@ class Picker extends React.Component {
 
   handlePickerChange(ev) {
     this.setState({ pickerValue: ev });  //+event.target.value || 0);
-    alert(this.state.pickerValue);
   };
 
   handleKeyPress(ev) {
     ev.key === 'Enter' ?
       this.props.action(this.props.type, 'change', ev.target.value) : //check diff and set add or remove
       null;
+
   };
 
   handleBlur(ev) {
@@ -43,7 +43,7 @@ class Picker extends React.Component {
             type="number"
             value={this.state.pickerValue}
             onChange={(ev) => { handlePickerChange(ev); }}
-            onKeyPress={(ev) => { this.handleKeyPress(ev); }}
+            onKeyUp={(ev) => { this.handleKeyPress(ev); }}
             onBlur={(ev) => { this.handleBlur(ev); }}
           />
         </div>

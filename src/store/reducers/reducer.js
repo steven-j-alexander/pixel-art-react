@@ -63,7 +63,7 @@ function changeDimensions(state, gridProperty, resizeVal) {
   const newValues = {
     frames: newFrames
   };
-  alert(`property: ${propertyValue} resize: ${resizeVal}`);
+  //alert(`property: ${propertyValue} resize: ${resizeVal}`);
   newValues[gridProperty] = parseInt(propertyValue, 10) + parseInt(resizeVal, 10);
     //propertyValue + resizeVal,
     //behaviour === 'add' ? propertyValue + 1 : propertyValue - 1,
