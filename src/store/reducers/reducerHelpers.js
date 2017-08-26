@@ -11,34 +11,37 @@ export function createGrid(cellsCount, initialColor, intervalPercentage) {
 }
 
 export function resizeGrid(frame, gridProperty, initialColor, resizeVal, dimensions) {
-  const totalCells = dimensions.rows * dimensions.columns;
   let currentFrameGrid = frame;
-
-  let behaviour = 'change'; //TEMPORARY
+  const dimCols = dimensions.columns;
+  const dimRows = dimensions.rows;
 
   if (gridProperty === 'columns') {
     // Resize by columns
-    if (behaviour === 'add') {
-      // Add a column at the end
-      for (let i = totalCells; i > 0; i -= dimensions.columns) {
-        currentFrameGrid = currentFrameGrid.splice(i, 0, Map({ color: initialColor, used: false }));
-        //nest another loop for each col increment
+    if (resizeVal >= 0) {
+      // Add columns at the end
+      for (let i = 0; i < resizeVal; i++) {
+        for (let j = dimRows * (dimCols+i); j > 0; j -= dimCols+i) {
+          currentFrameGrid = currentFrameGrid.splice(j, 0, Map({ color: initialColor, used: false }));
+        }
       }
     } else {
-      for (let i = totalCells; i > 0; i -= dimensions.columns) {
-        currentFrameGrid = currentFrameGrid.splice(i - 1, 1); //change the second splice parameter to equal the total decrement
+      // Remove columns from the end
+      for (let i = 0; i < Math.abs(resizeVal); i++) {
+        for (let j = dimRows * (dimCols-i); j > 0; j -= dimCols-i) {
+          currentFrameGrid = currentFrameGrid.splice(j - 1, 1);
+        }
       }
     }
   } else if (gridProperty === 'rows') {
     // Resize by rows
-    if (behaviour === 'change' && resizeVal >= 0) {
-      // Add a row at the end
-      for (let i = 0; i < (dimensions.columns * Math.abs(resizeVal)); i++) { //FIX THIS LINE
+    if (resizeVal >= 0) {
+      // Add rows at the end
+      for (let i = 0; i < (dimCols * Math.abs(resizeVal)); i++) {
         currentFrameGrid = currentFrameGrid.push(Map({ color: initialColor, used: false }));
       }
     } else {
-      // Remove the last row
-      for (let i = 0; i < dimensions.columns; i++) { //add a * decVal after dimensions.columns
+      // Remove rows from the end
+      for (let i = 0; i <dimCols; i++) {
         currentFrameGrid = currentFrameGrid.splice(resizeVal, Math.abs(resizeVal));
       }
     }
