@@ -31,7 +31,7 @@ export function resizeGrid(frame, gridProperty, initialColor, resizeVal, dimensi
     }
   } else if (gridProperty === 'rows') {
     // Resize by rows
-    if (behaviour === 'change') {
+    if (behaviour === 'change' && resizeVal >= 0) {
       // Add a row at the end
       for (let i = 0; i < (dimensions.columns * Math.abs(resizeVal)); i++) { //FIX THIS LINE
         currentFrameGrid = currentFrameGrid.push(Map({ color: initialColor, used: false }));
@@ -39,7 +39,7 @@ export function resizeGrid(frame, gridProperty, initialColor, resizeVal, dimensi
     } else {
       // Remove the last row
       for (let i = 0; i < dimensions.columns; i++) { //add a * decVal after dimensions.columns
-        currentFrameGrid = currentFrameGrid.splice(-1, 1);
+        currentFrameGrid = currentFrameGrid.splice(resizeVal, Math.abs(resizeVal));
       }
     }
   }

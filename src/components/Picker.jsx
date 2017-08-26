@@ -49,14 +49,14 @@ class Picker extends React.Component {
         </div>
         <div className="picker__buttons">
           <button
-            onClick={(ev) => { this.props.action(this.props.type, 'add', ev.target.value); }}
+            onClick={(ev) => { this.props.action(this.props.type, 'change', this.state.pickerValue+1); }}
             className="button-add"
             id={`picker__add-${this.props.type}`}
           >
             +
           </button>
           <button
-            onClick={(ev) => { this.props.action(this.props.type, 'remove', ev.target.value); }}
+            onClick={(ev) => { this.props.action(this.props.type, 'change', this.state.pickerValue-1); }}
             className="button-remove"
             id={`picker__remove-${this.props.type}`}
           >
