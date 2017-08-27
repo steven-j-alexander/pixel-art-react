@@ -60,19 +60,9 @@ function changeDimensions(state, gridProperty, resizeVal) {
     );
   }
 
-  const newValues = {
-    frames: newFrames
-  };
-  //alert(`property: ${propertyValue} resize: ${resizeVal}`);
+  const newValues = { frames: newFrames };
   newValues[gridProperty] = parseInt(propertyValue, 10) + parseInt(resizeVal, 10);
-    //propertyValue + resizeVal,
-    //behaviour === 'add' ? propertyValue + 1 : propertyValue - 1,
-      //behaviour === 'remove' ? propertyValue -1 :
-        //resizeVal, //something weird happens with this
-      /*(behavior === 'remove' ? propertyValue - 1 :
-      cellValue),*/
-    //10
-  //);
+
   return state.merge(newValues);
 }
 
@@ -299,7 +289,7 @@ export default function (state = Map(), action) {
     case 'SET_INITIAL_STATE':
       return setInitialState(state);
     case 'CHANGE_DIMENSIONS':
-      return changeDimensions(state, action.gridProperty, action.behaviour, action.resizeVal);
+      return changeDimensions(state, action.gridProperty, action.resizeVal);
     case 'SET_COLOR_SELECTED':
       return setColorSelected(
         state, action.newColorSelected, action.paletteColorPosition
