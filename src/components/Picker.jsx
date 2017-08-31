@@ -16,15 +16,22 @@ class Picker extends React.Component {
     this.setState({ pickerValue: ev });  //+event.target.value || 0);
   };
 
-  handleKeyPress(ev) {
-    ev.key === 'Enter' ?
-      this.props.action(this.props.type, ev.target.value) : //check diff and set add or remove
-      null;
-
+  handleKeyPress(ev) { //not updating on NaN because it's being set back to the same value which takes no action
+    if (ev.key === 'Enter') {
+      if (+ev.target.value <= 64) {
+        this.props.action(this.props.type, ev.target.value)
+      } else {
+        this.setState({ pickerValue: this.props.value });
+      }
+    }
   };
 
   handleBlur(ev) {
-    this.props.action(this.props.type, ev.target.value);
+    if (+ev.target.value <= 64) {
+      this.props.action(this.props.type, ev.target.value)
+    } else {
+      this.setState({ pickerValue: this.props.value });
+    }
   };
 
   render() {

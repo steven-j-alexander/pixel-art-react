@@ -9,7 +9,7 @@ const Dimensions = (props) => {
     let resizeVal = value - props[gridProperty];
     (Number.isInteger(resizeVal) && value >= 1) ?
       props.actions.changeDimensions(gridProperty, Math.ceil(resizeVal)) :
-      null;
+      null; //return previous props.value
   };
 
   const { columns, rows } = props;
